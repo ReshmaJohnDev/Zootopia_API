@@ -1,10 +1,10 @@
 import requests
 
+
 URL = "https://api.api-ninjas.com/v1/animals"
 KEY_VALUE = "X-Api-Key=u0e9t1G4TQm22fEUoeK10Q==bEhGG2YX3v10GQrY"
 FILE_NAME = "animals.html"
 
-#?name=&X-Api-Key=u0e9t1G4TQm22fEUoeK10Q==bEhGG2YX3v10GQrY
 
 
 def get_animal_data(url):
@@ -20,6 +20,7 @@ def load_html_data(file_path):
     """
     with open(file_path, "r") as handle:
         return handle.read()
+
 
 def write_to_file(data, file_name):
     """
@@ -77,19 +78,15 @@ def generate_html_data(animals_data):
     return  "".join(serialize_animal(animal) for animal in animals_data)
 
 
-
 def main() :
     """
     This is the main function through which the sub functions get invoked .
     """
-    animal_name = input("Please enter the animal name: ")
+    animal_data_html = load_html_data("animal_template.html")
+    animal_name = "fox"
     req_url = URL+"?name="+f"{animal_name}"+"&"+f"{KEY_VALUE}"
     animals_data = get_animal_data(req_url)
-    animal_data_string = generate_html_data(animals_data)
-    animal_data_html = load_html_data("animal_template.html")
-    new_data = animal_data_html.replace("__REPLACE_ANIMALS_INFO__", animal_data_string)
-    write_to_file(new_data, FILE_NAME)
-    print(f"Website was successfully generated to the file {FILE_NAME}.")
+    print(animals_data)
 
 
 if __name__ == "__main__":
